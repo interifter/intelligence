@@ -15,7 +15,8 @@ namespace BasicNeuralNetwork.Test {
             var count = 1000;
             Func<double, double> fA = funcA;
             Func<double, double> fB = funcB;
-            max = Math.Max(fA.GetHashCode(), fB.GetHashCode());
+            Func<double, double> fC = funcC;
+            max = Math.Max(fA.GetHashCode(), Math.Max(fB.GetHashCode(), fC.GetHashCode()));
 
             List<Connection> connections = new List<Connection>() {
                 new Connection() {
@@ -59,16 +60,21 @@ namespace BasicNeuralNetwork.Test {
             var trainers2 = GenerateTrainingSet(funcA, count, -250, 250, -250, 250);
             var trainers3 = GenerateTrainingSet(funcB, count, 500, 500);
             var trainers4 = GenerateTrainingSet(funcB, count, -250, 250, -250, 250);
-            var maxIts = 30;
+            var trainers5 = GenerateTrainingSet(funcC, count, -500, 500, -500, 500);
+            var minIts = 3;
             var val = 0.0;
-            while(maxIts-- > 0 && val < .94) {
-                val = RunTrial(count, perceptron, trainers4);
-            }
-            
-            RunTrial(count, perceptron, trainers);
-            RunTrial(count, perceptron, trainers2);
-            RunTrial(count, perceptron, trainers4);
-            RunTrial(count, perceptron, trainers3);
+            //while(maxIts-- > 0 && val < .94) {
+            //    val = RunTrial(count, perceptron, trainers4);
+            //}
+            double trial1, trial2, trial3, trial4, trial5;
+            do {
+                trial1 = RunTrial(count, perceptron, trainers);
+                trial2 = RunTrial(count, perceptron, trainers3);
+                trial3 = RunTrial(count, perceptron, trainers2);
+                trial4 = RunTrial(count, perceptron, trainers3);
+                trial5 = RunTrial(count, perceptron, trainers5);
+                minIts--;
+            } while ((trial1 < .94 && trial2 < .94 && trial3 < .94 && trial4 < .94 && trial5 < .94) || minIts > 0);
             
             
             
@@ -179,6 +185,10 @@ namespace BasicNeuralNetwork.Test {
 
         public double funcB(double x) {
             return x * x - x;
+        }
+
+        public double funcC(double x) {
+            return -funcA(x);
         }
     }
 
