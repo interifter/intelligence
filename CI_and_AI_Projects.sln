@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleEvolutionaryAlgorithm", "SimpleEvolutionaryAlgorithm\SimpleEvolutionaryAlgorithm.csproj", "{BA19734F-816A-4F4B-B7A8-58502D74E9A5}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicNeuralNetwork", "BasicNeuralNetwork\BasicNeuralNetwork.csproj", "{241FDE44-D9B0-404A-BBC8-ACC63DA0ABDF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicNeuralNetwork.Test", "BasicNeuralNetwork.Test\BasicNeuralNetwork.Test.csproj", "{0A4D5712-81A0-45B7-9C76-3F815B85A582}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrainFk.Tests", "BrainFk.Tests\BrainFk.Tests.csproj", "{5C5CC897-D24E-4E31-9837-268C1C566DFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +35,15 @@ Global
 		{0A4D5712-81A0-45B7-9C76-3F815B85A582}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A4D5712-81A0-45B7-9C76-3F815B85A582}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A4D5712-81A0-45B7-9C76-3F815B85A582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C5CC897-D24E-4E31-9837-268C1C566DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C5CC897-D24E-4E31-9837-268C1C566DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C5CC897-D24E-4E31-9837-268C1C566DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C5CC897-D24E-4E31-9837-268C1C566DFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2FF808FA-1E8E-47A8-9890-21E59455E5D4}
 	EndGlobalSection
 EndGlobal
