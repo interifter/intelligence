@@ -4,6 +4,8 @@ using SimpleEvolutionaryAlgorithm;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using BrainFk;
 
 namespace SimpleEvolutionaryAlgorithm.Test {
     [TestClass]
@@ -130,6 +132,52 @@ namespace SimpleEvolutionaryAlgorithm.Test {
                 MutationRate = .01,
                 PoolSize = 100,
             };
+        }
+
+        public char RandomFunction(int? seed = null) {
+            for (int i = 0; i < 5000000; i++) { }
+            char[] validChars = new[] { '>', '<', '+', '-', '.', ',', '[', ']' };
+            Random r;
+            if (seed.HasValue) {
+                r = new Random(seed.Value);
+            }
+            else {
+                r = new Random();
+            }
+
+            return validChars[r.Next(0, validChars.Length)];
+        }
+
+
+
+        [TestMethod]
+        public void BrainFkFitnessTestForTwoPlusThree() {
+            int poolsize = 10;
+            int geneStartsize = 100;
+            var genomes = new List<Genome<char>>();
+            double overallFitness = 0.0;
+            int generations = 10;
+            Genome<string> best = null;
+
+            //initialize population
+            int i = 0;
+            while (overallFitness == 0.0) {
+                var g = Genome<char>.Generate(() => RandomFunction(), new Random().Next(0, geneStartsize), 0.01);
+                double fitness = 0.0;
+                try {
+                    var result = Interpreter.Interpret(string.Join("", g.Genes), 30, (byte)2, (byte)3);
+                    g.Fitness = (double)result[0] / 5.0;
+                    overallFitness = fitness;
+                }
+                catch { //This will likely happen a lot 
+                }
+
+                if(fitness > 0)
+                    genomes.Add(g);
+
+                i++;
+            }
+            
         }
 
         [TestMethod]
