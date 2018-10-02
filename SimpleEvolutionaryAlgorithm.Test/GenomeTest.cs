@@ -135,7 +135,7 @@ namespace SimpleEvolutionaryAlgorithm.Test {
         }
 
         public char RandomFunction(int? seed = null) {
-            for (int i = 0; i < 5000000; i++) { }
+            for (int i = 0; i < 2500000; i++) { }
             char[] validChars = new[] { '>', '<', '+', '-', '.', ',', '[', ']' };
             Random r;
             if (seed.HasValue) {
@@ -158,16 +158,18 @@ namespace SimpleEvolutionaryAlgorithm.Test {
             double overallFitness = 0.0;
             int generations = 10;
             Genome<string> best = null;
-
+            double expectedResult = 5.0;
+            string fileName = @"C:\Code\populateBfResults.txt";
             //initialize population
             int i = 0;
-            while (overallFitness == 0.0) {
-                var g = Genome<char>.Generate(() => RandomFunction(), new Random().Next(0, geneStartsize), 0.01);
+            while (genomes.Count < poolsize) {
+                var g = Genome<char>.Generate(() => RandomFunction(), new Random().Next(i % 3, geneStartsize), 0.01);
+                //for (int k = 0; k < 2000; k++) { }
                 double fitness = 0.0;
                 try {
                     var result = Interpreter.Interpret(string.Join("", g.Genes), 30, (byte)2, (byte)3);
-                    g.Fitness = (double)result[0] / 5.0;
-                    overallFitness = fitness;
+                    g.Fitness = (double)result[0] / expectedResult; //The closer to 1, the better the solution.
+                    fitness = g.Fitness;
                 }
                 catch { //This will likely happen a lot 
                 }
@@ -177,6 +179,28 @@ namespace SimpleEvolutionaryAlgorithm.Test {
 
                 i++;
             }
+
+            if(!File.Exists(fileName)) {
+                using (StreamWriter sw = new StreamWriter(@"C:\Code\populateBfResults.txt", true)) {
+                    sw.Write("Iterations(i-val)");
+                    for (int w = 0; w < poolsize; w++) {
+                        sw.Write($"\tFormula {w}\tFitness {w}");
+                    }
+                    sw.WriteLine();
+                }
+            }
+
+            //Run 1: 328 generations just to populate.
+            using(StreamWriter sw = new StreamWriter(fileName, true)) {
+                sw.Write($"{i}");
+                for (int w = 0; w < poolsize; w++) {
+                    sw.Write($"\t{string.Join("", genomes[w].Genes)}\t{genomes[w].Fitness}");
+                   
+                }
+                sw.WriteLine();
+            }
+
+
             
         }
 
